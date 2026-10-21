@@ -1,35 +1,34 @@
-Python
-
 import funcoes as f
 
 def executar_pipeline():
     registros = f.carregar_csv("halloween_vendas.csv")
-    print(f"Total de linhas lidas: {len(registros)}")
-    print("Exemplo dos 3 primeiros registros:", registros[:3])
-
-    cat_vazias = 0
-    cat_alteradas_conteudo = 0
-    cat_so_caixa = 0
-    canais_padronizados = 0
+    
+    qtd_invalidas = 0
+    preco_invalidos = 0
+    pedidos_com_erro_num = set()
+    datas_invalidas = 0
 
     for r in registros:
-        cat_limpa, cat_status = f.limpar_categoria(r['categoria'])
-        if cat_status == "vazia":
-            cat_vazias += 1
-        elif cat_status == "alterada_conteudo":
-            cat_alteradas_conteudo += 1
-        else:
-            cat_so_caixa += 1
+        pid = r['pedido_id']
+        
+        q_ok = f.validar_quantidade(r['quantidade'])
+        p_ok = f.validar_preco(r['preco_unitario'])
+        if not q_ok:
+            qtd_invalidas += 1
+            pedidos_com_erro_num.add(pid)
+        if not p_ok:
+            preco_invalidos += 1
+            pedidos_com_erro_num.add(pid)
+            
+        dt = f.converter_data(r['data_venda'])
+        if not dt:
+            datas_invalidas += 1
 
-        canal_padr = f.padronizar_canal(r['canal_venda'])
-        if canal_padr and r['canal_venda'] != canal_padr:
-            canais_padronizados += 1
-
-    print("\n--- RESULTADOS AULA 1 ---")
-    print(f"Categorias Vazias: {cat_vazias}")
-    print(f"Categorias Alteradas no Conteúdo: {cat_alteradas_conteudo}")
-    print(f"Categorias Apenas Caixa: {cat_so_caixa}")
-    print(f"Canais Padronizados: {canais_padronizados}")
+    print("\n--- RESULTADOS Passo 2 ---")
+    print(f"Quantidades Inválidas: {qtd_invalidas}")
+    print(f"Preços Ausentes/Inválidos: {preco_invalidos}")
+    print(f"Total de Pedidos Afetados por Erros Numéricos: {len(pedidos_com_erro_num)}")
+    print(f"Datas Inválidas: {datas_invalidas}")
 
 if __name__ == "__main__":
     executar_pipeline()
