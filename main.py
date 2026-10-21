@@ -1,5 +1,5 @@
 import funcoes as f
-
+import pandas as pd
 def executar_pipeline():
     registros = f.carregar_csv("halloween_vendas.csv")
     total_pedidos = len(registros)
