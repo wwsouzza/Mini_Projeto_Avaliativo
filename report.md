@@ -18,3 +18,6 @@ Investigou-se a hipótese de que todos os pedidos sem data de entrega registrada
 ## 4. Descobertas e Métricas Operacionais
 - **Distribuição por Canal de Venda:** O canal `Web` lidera o volume de registros com 666 pedidos (44,4%), seguido pela `Loja física` com 551 pedidos (36,7%) e `Mercado` com 283 pedidos (18,9%). *Limitação:* Os dados refletem contagem de pedidos cadastrados, e não faturamento real ou volume financeiro arrecadado.
 - **Sazonalidade e Comportamento Temporal:** As vendas apresentam extrema concentração no mês de outubro em ambos os anos, registrando 393 pedidos em 10/2024 e 410 pedidos em 10/2025, representando cerca de 53,5% do total anual acumulado no período de pico devido as festas de Halloween (31 de outubro).
+
+## 5. Criação do arquivo com os dados tratados
+- Utilizando os filtros e sanitização do arquivo foi criado o arquivo halloween_vendas_tratado.csv preparado para novas analises analiticas e estatisticas. 
