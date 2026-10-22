@@ -42,7 +42,7 @@ def limpar_categoria(texto: str):
         return limpo, "so_caixa"            # Apenas conversão de maiúsculas/minúsculas
 
 def padronizar_canal(texto: str):
-    """Retorna o nome do canal padronizado usando o dicionário CANAIS_VALIDOS."""
+    #Retorna o nome do canal padronizado usando o dicionário CANAIS_VALIDOS.
     return CANAIS_VALIDOS.get(texto.strip().lower())
 
 def validar_quantidade(texto: str) -> bool:
