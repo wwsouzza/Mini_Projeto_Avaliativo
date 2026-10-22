@@ -78,5 +78,9 @@ def executar_pipeline():
     print(f"Pedidos por Canal: {contagem_canais}")
     print("Pedidos por Ano-Mês:", dict(sorted(contagem_ano_mes.items())))
 
+# Criando e salvando a base tratada
+
+f.salvar_base_tratada("halloween_vendas.csv", "halloween_vendas_tratado.csv")
+
 if __name__ == "__main__":
     executar_pipeline()

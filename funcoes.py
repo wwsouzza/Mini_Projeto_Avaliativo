@@ -73,3 +73,20 @@ def converter_data(texto: str):
 def formatar_data_br(dt: datetime) -> str:
     """Gera a apresentação brasileira de datas (dd/mm/aaaa)."""
     return dt.strftime("%d/%m/%Y") if dt else ""
+
+def salvar_base_tratada(caminho_original: str, caminho_saida: str):
+    """
+    Carrega a base original, aplica a limpeza de categorias e padronização de canais,
+    e exporta uma nova versão higienizada sem alterar o arquivo original.
+    """
+    df = pd.read_csv(caminho_original, dtype=str, keep_default_na=False)
+    
+    # Aplica a limpeza de categoria
+    df['categoria'] = df['categoria'].apply(lambda x: limpar_categoria(x)[0])
+    
+    # Aplica a padronização de canais
+    df['canal_venda'] = df['canal_venda'].apply(padronizar_canal)
+    
+    # Exporta para um novo arquivo CSV
+    df.to_csv(caminho_saida, index=False, encoding='utf-8')
+    print(f"Base de dados tratada salva em: {caminho_saida}")
