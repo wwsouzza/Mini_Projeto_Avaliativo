@@ -21,3 +21,9 @@ A empresa comercializa fantasias e acessórios de Halloween nos canais **Mercado
 ## 🚀 Como Executar o Projeto
 ```bash
 python main.py
+
+## Video com apresentação da solução
+https://github.com/user-attachments/assets/0ab78632-b5b2-49a0-819f-982a2f0ed944
+
+
+
