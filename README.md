@@ -23,7 +23,11 @@ A empresa comercializa fantasias e acessórios de Halloween nos canais **Mercado
 python main.py
 
 ## Video com apresentação da solução
-https://github.com/user-attachments/assets/0ab78632-b5b2-49a0-819f-982a2f0ed944
+
+
+
+https://github.com/user-attachments/assets/ece7ac8a-8925-4718-aac0-59a621dbff96
+
 
 
 
