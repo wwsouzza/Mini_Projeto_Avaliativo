@@ -21,11 +21,11 @@ def executar_pipeline():
     contagem_canais = {"Web": 0, "Loja física": 0, "Mercado": 0}
     contagem_ano_mes = {}
 
-    for r in registros:
-        pid = r['pedido_id']
+    for registro in registros:
+        pid = registro['pedido_id']
         
         # Categoria
-        cat_limpa, cat_status = f.limpar_categoria(r['categoria'])
+        cat_limpa, cat_status = f.limpar_categoria(registro['categoria'])
         if cat_status == "vazia":
             cat_vazias += 1
         elif cat_status == "alterada_conteudo":
@@ -34,15 +34,15 @@ def executar_pipeline():
             cat_so_caixa += 1
             
         # Canal
-        canal_padr = f.padronizar_canal(r['canal_venda'])
+        canal_padr = f.padronizar_canal(registro['canal_venda'])
         if canal_padr:
             contagem_canais[canal_padr] += 1
-            if r['canal_venda'] != canal_padr:
+            if registro['canal_venda'] != canal_padr:
                 canais_padronizados += 1
                 
         # Validação Numérica
-        q_ok = f.validar_quantidade(r['quantidade'])
-        p_ok = f.validar_preco(r['preco_unitario'])
+        q_ok = f.validar_quantidade(registro['quantidade'])
+        p_ok = f.validar_preco(registro['preco_unitario'])
         if not q_ok:
             qtd_invalidas += 1
             pedidos_com_erro_num.add(pid)
@@ -51,7 +51,7 @@ def executar_pipeline():
             pedidos_com_erro_num.add(pid)
             
         # Datas
-        dt = f.converter_data(r['data_venda'])
+        dt = f.converter_data(registro['data_venda'])
         if dt:
             chave_am = dt.strftime("%Y-%m")
             contagem_ano_mes[chave_am] = contagem_ano_mes.get(chave_am, 0) + 1
@@ -59,13 +59,13 @@ def executar_pipeline():
             datas_invalidas += 1
             
         # Regra de Entrega
-        if r['data_entrega'].strip() == "":
-            if r['status_pedido'] == "Cancelado":
+        if registro['data_entrega'].strip() == "":
+            if registro['status_pedido'] == "Cancelado":
                 sem_entrega_cancelado += 1
             else:
                 sem_entrega_outros += 1
                 if len(exemplos_contraexemplo) < 3:
-                    exemplos_contraexemplo.append((pid, r['status_pedido'], r['data_venda']))
+                    exemplos_contraexemplo.append((pid, registro['status_pedido'], registro['data_venda']))
 
     print("=== RELATÓRIO FESTA EM CENA (PYTHON NATIVO) ===")
     print(f"Total de Linhas Lidas: {total_pedidos}")
@@ -83,4 +83,4 @@ def executar_pipeline():
 f.salvar_base_tratada("halloween_vendas.csv", "halloween_vendas_tratado.csv")
 
 if __name__ == "__main__":
-    executar_pipeline()
+    executar_pipeline()  
